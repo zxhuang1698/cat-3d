@@ -1,0 +1,23 @@
+name: cat3d
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.9
+  - numpy
+  - scipy
+  - tqdm
+  - termcolor
+  - nvidia::cudatoolkit=10.2
+  - pytorch=1.10
+  - torchvision=0.11.1
+  - tensorboard
+  - scikit-image
+  - vigra
+  - pyyaml
+  - pip
+  - matplotlib
+  - pip:
+    - pymcubes
+    - setuptools==59.5.0
+    - trimesh[easy]

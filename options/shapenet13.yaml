@@ -1,0 +1,111 @@
+group: shapenet13
+name: run
+load: output/shapenet13/pretrain/latest.ckpt
+output_root: output
+
+batch_size: 12
+cpu: false
+gpu: 0
+image_size: [64,64]
+max_epoch: 40
+metric_temp: 0.3
+pretrain: false
+pretrain_iter: 1000
+resume: false
+seed: 0
+yaml:
+
+arch:
+    enc_network: resnet18
+    enc_pretrained: true
+    latent_dim_sdf: 512
+    latent_dim_rgb: 512
+    layers_hyper: [null,512,512,512,512,512,null]
+    layers_rgb: [null,128,3]
+    layers_level: [null,64,64,64,64,32,1]
+    interm_coord: true
+    lstm_dim: 32
+    shape_condition: true
+
+camera:
+    dist: 2.732
+    focal: 1.8660254037844388
+    model: perspective
+
+data:
+    augment: 
+    bgcolor: 1
+    dataset: shapenet_core
+    masking: false
+    num_classes: 13
+    num_workers: 8
+    seperate_loader: 
+    shapenet:
+        cat: 
+        train_view: 1
+        test_view: 1
+
+eval:
+    f_thresholds: [0.01, 0.05, 0.1]
+    icp: false
+    num_points: 100000
+    range: [-0.6,0.6]
+    vox_res: 64
+
+freq:
+    ckpt_latest: 1000 # iterations
+    debug: 200
+    eval: 1 # epochs
+    scalar: 200 # iterations
+    vis: 1000 # iterations
+    
+gan:
+    condition: true
+    n_channels: 256
+    reg_weight: 10
+    spec_norm: true
+
+impl:
+    bisection_steps: 10
+    depth_range: [2,3.5]
+    importance: true
+    init_depth: 2
+    posenc_level: 5
+    posenc_rgb: 5
+    render_layer: 1
+    rgb_temp: 30
+    sdf_samples: 5
+    sdf_range: [-1,1]
+    srn_steps: 10
+
+loss_weight:
+    cat_metric: 0.05
+    eikonal: 0.01
+    gen: 0.2
+    mask_iou: 0.3
+    ray_intsc: 1
+    ray_free: 0.1
+    render: 1
+    shape_silh: 3
+    view_consistency: 0.03
+
+optim:
+    algo: Adam
+    lr: 1.e-4
+    lr_gen: 1.e-4
+    lr_dis: 1.e-4
+    params: {'betas': [0.5, 0.9]}
+    sched:
+    clip_norm: 3
+    clip_iter: 5000
+
+pre: 
+    batch_size: 32
+    iter: 1000
+    latent_std: 1.
+    optim_params: {}
+    radius: 0.5
+    viewpoint: false
+
+tb:
+    num_images: [4,8]
